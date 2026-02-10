@@ -1,0 +1,989 @@
+/* ================================================
+   GLOBAL STYLES & RESET
+   ================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fef7f0 0%, #fef3f0 25%, #fef0ef 50%, #feecec 75%, #fde8e8 100%);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a3540;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================
+   PAGE STRUCTURE
+   ================================================ */
+
+.page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.page.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 24px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ================================================
+   HEART ANIMATION
+   ================================================ */
+
+.heart-container {
+    margin-bottom: 24px;
+}
+
+.heart {
+    width: 60px;
+    height: 55px;
+    background: linear-gradient(145deg, #e53e3e 0%, #c53030 50%, #9b2c2c 100%);
+    position: relative;
+    transform: rotate(-45deg);
+    box-shadow: 0 8px 30px rgba(197, 48, 48, 0.4);
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    width: 60px;
+    height: 55px;
+    background: linear-gradient(145deg, #e53e3e 0%, #c53030 50%, #9b2c2c 100%);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.heart::before {
+    top: -27.5px;
+    left: 0;
+}
+
+.heart::after {
+    left: 27.5px;
+    top: 0;
+}
+
+.heart.pumping {
+    animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: rotate(-45deg) scale(1);
+    }
+
+    14% {
+        transform: rotate(-45deg) scale(1.15);
+    }
+
+    28% {
+        transform: rotate(-45deg) scale(1);
+    }
+
+    42% {
+        transform: rotate(-45deg) scale(1.15);
+    }
+
+    70% {
+        transform: rotate(-45deg) scale(1);
+    }
+}
+
+/* ================================================
+   LANDING PAGE STYLES
+   ================================================ */
+
+.landing-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #d63384;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.landing-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #8b5a7c;
+    margin-bottom: 32px;
+    line-height: 1.6;
+    max-width: 320px;
+}
+
+.input-wrapper {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 24px;
+}
+
+.name-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #5c374c;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(255, 107, 157, 0.3);
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.name-input::placeholder {
+    color: #c9a0b5;
+}
+
+.name-input:focus {
+    border-color: #ff6b9d;
+    box-shadow: 0 0 20px rgba(255, 107, 157, 0.25);
+    background: rgba(255, 255, 255, 1);
+}
+
+/* ================================================
+   BUTTONS
+   ================================================ */
+
+.btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(145deg, #ff6b9d 0%, #ff4081 100%);
+    color: white;
+    box-shadow: 0 6px 25px rgba(255, 64, 129, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255, 64, 129, 0.5);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* ================================================
+   VALENTINE PAGE STYLES
+   ================================================ */
+
+.quote-text {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #8b5a7c;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.proposal-text {
+    margin-bottom: 36px;
+}
+
+.name-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #d63384;
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+
+.proposal-question {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #5c374c;
+    white-space: nowrap;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    position: relative;
+    min-height: 140px;
+}
+
+.buttons-container.horizontal {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    min-height: auto;
+}
+
+.btn-yes {
+    background: linear-gradient(145deg, #ff6b9d 0%, #ff4081 100%);
+    color: white;
+    box-shadow: 0 6px 25px rgba(255, 64, 129, 0.4);
+    font-size: 1.1rem;
+    padding: 16px 48px;
+    z-index: 10;
+}
+
+.btn-yes:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 35px rgba(255, 64, 129, 0.5);
+}
+
+.no-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-no {
+    background: rgba(255, 255, 255, 0.9);
+    color: #8b5a7c;
+    border: 2px solid rgba(255, 107, 157, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    font-size: 0.95rem;
+    padding: 12px 32px;
+}
+
+.btn-no:hover {
+    border-color: #ff6b9d;
+}
+
+.catch-text {
+    font-size: 0.8rem;
+    color: #c9a0b5;
+    font-style: italic;
+}
+
+/* ================================================
+   WATERMARK
+   ================================================ */
+
+.watermark-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-30deg) scale(1.5);
+    transform-origin: center center;
+    gap: 50px;
+}
+
+.watermark-overlay.hidden {
+    display: none;
+}
+
+.watermark-overlay .wm-line {
+    white-space: nowrap;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(214, 51, 132, 0.08);
+    letter-spacing: 20px;
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+    line-height: 1;
+}
+
+/* ================================================
+   UNLOCK & SHARE SECTION
+   ================================================ */
+
+.unlock-section {
+    margin-top: 32px;
+}
+
+.unlock-section.hidden {
+    display: none;
+}
+
+.btn-unlock {
+    background: rgba(255, 255, 255, 0.85);
+    color: #5c4a52;
+    border: 1px solid rgba(180, 160, 170, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    white-space: normal;
+    line-height: 1.4;
+    max-width: 340px;
+    font-size: 0.9rem;
+    padding: 14px 24px;
+}
+
+.btn-unlock:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+.share-section {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 350px;
+    animation: fadeIn 0.5s ease;
+}
+
+.share-section.hidden {
+    display: none;
+}
+
+.share-ready-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #d63384;
+    margin-bottom: 16px;
+}
+
+.share-link-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.share-link-input {
+    width: 100%;
+    padding: 14px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: #5c374c;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(255, 107, 157, 0.3);
+    border-radius: 12px;
+    text-align: center;
+    outline: none;
+}
+
+.btn-copy {
+    background: linear-gradient(145deg, #10b981 0%, #059669 100%);
+    color: white;
+    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.3);
+}
+
+.btn-copy:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+}
+
+.copy-feedback {
+    font-size: 0.9rem;
+    color: #10b981;
+    font-weight: 500;
+    margin-top: 8px;
+    animation: fadeIn 0.3s ease;
+}
+
+.copy-feedback.hidden {
+    display: none;
+}
+
+/* ================================================
+   CREATE ANOTHER BUTTON
+   ================================================ */
+
+.btn-create-another {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    color: #d63384;
+    border: 1px solid rgba(214, 51, 132, 0.25);
+    box-shadow: 0 4px 16px rgba(214, 51, 132, 0.1);
+    font-size: 0.9rem;
+}
+
+.btn-create-another:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 20px rgba(214, 51, 132, 0.15);
+}
+
+/* ================================================
+   MANAGE SURPRISES (LANDING PAGE)
+   ================================================ */
+
+.manage-section {
+    margin-top: 24px;
+}
+
+.manage-section.hidden {
+    display: none;
+}
+
+.btn-manage {
+    background: rgba(255, 255, 255, 0.85);
+    color: #5c4a52;
+    border: 1px solid rgba(180, 160, 170, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-size: 0.9rem;
+}
+
+.btn-manage:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================================
+   MANAGE PANEL OVERLAY
+   ================================================ */
+
+.manage-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.25s ease;
+}
+
+.manage-panel.hidden {
+    display: none;
+}
+
+.manage-panel-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 32px 24px;
+    max-width: 400px;
+    width: 90%;
+    max-height: 75vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.manage-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.manage-panel-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #d63384;
+    margin: 0;
+}
+
+.manage-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #999;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.manage-close-btn:hover {
+    color: #d63384;
+}
+
+.manage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.manage-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: rgba(254, 240, 245, 0.8);
+    border: 1px solid rgba(214, 51, 132, 0.12);
+    border-radius: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manage-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(214, 51, 132, 0.08);
+}
+
+.manage-item-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #5c374c;
+}
+
+.manage-item-copy {
+    background: linear-gradient(145deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+}
+
+.manage-item-copy:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.manage-item-copy.copied {
+    background: linear-gradient(145deg, #6366f1 0%, #4f46e5 100%);
+}
+
+.manage-create-btn {
+    width: 100%;
+}
+
+
+/* ================================================
+   YES PAGE STYLES
+   ================================================ */
+
+#yes-page {
+    position: fixed;
+    background: linear-gradient(135deg, #fef7f0 0%, #fef3f0 25%, #fef0ef 50%, #feecec 75%, #fde8e8 100%);
+}
+
+.yes-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+}
+
+.yes-text {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #4a3540;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.yes-text-heading {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #4a3540;
+    margin-bottom: -10px;
+}
+
+.yes-text-subheading {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #4a3540;
+    margin-top: -12px;
+}
+
+.yes-text-body {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #6b5460;
+    line-height: 1.7;
+}
+
+.yes-text-cta {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #4a3540;
+}
+
+.bounce-text {
+    animation: fadeIn 0.6s ease forwards, gentleBounce 2s ease-in-out infinite;
+    animation-delay: 1.5s, 2.1s;
+    opacity: 0;
+}
+
+@keyframes gentleBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.gif-container {
+    margin-top: 16px;
+}
+
+.love-gif {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(214, 51, 132, 0.2);
+}
+
+/* ================================================
+   FLOATING HEARTS ANIMATION
+   ================================================ */
+
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp 8s linear infinite;
+    opacity: 0;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.7;
+    }
+
+    90% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ================================================
+   ANIMATIONS
+   ================================================ */
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.5s;
+}
+
+.delay-2 {
+    animation-delay: 1.5s;
+}
+
+.delay-3 {
+    animation-delay: 2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================================
+   RESPONSIVE DESIGN
+   ================================================ */
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px 16px;
+    }
+
+    .landing-title {
+        font-size: 1.5rem;
+    }
+
+    .landing-subtitle {
+        font-size: 0.95rem;
+        max-width: 280px;
+    }
+
+    .heart {
+        width: 50px;
+        height: 45px;
+    }
+
+    .heart::before,
+    .heart::after {
+        width: 50px;
+        height: 45px;
+    }
+
+    .heart::before {
+        top: -22.5px;
+    }
+
+    .heart::after {
+        left: 22.5px;
+    }
+
+    .name-display {
+        font-size: 1.75rem;
+    }
+
+    .proposal-question {
+        font-size: 1.25rem;
+    }
+
+    .quote-text {
+        font-size: 1.1rem;
+    }
+
+    .yes-text {
+        font-size: 1.1rem;
+    }
+
+    .love-gif {
+        max-width: 240px;
+    }
+
+    .watermark-overlay {
+        gap: 28px;
+    }
+
+    .watermark-overlay .wm-line {
+        font-size: 0.95rem;
+        letter-spacing: 14px;
+    }
+}
+
+@media (max-width: 360px) {
+    .landing-title {
+        font-size: 1.35rem;
+    }
+
+    .name-display {
+        font-size: 1.5rem;
+    }
+
+    .proposal-question {
+        font-size: 1.1rem;
+    }
+
+    .btn {
+        padding: 12px 28px;
+        font-size: 0.95rem;
+    }
+
+    .btn-yes {
+        padding: 14px 40px;
+    }
+}
+
+/* ================================================
+   SAFE AREA FOR NOTCHED DEVICES
+   ================================================ */
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .page {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .watermark-overlay {
+        bottom: calc(0px + env(safe-area-inset-bottom));
+    }
+}
+
+/* ================================================
+   REDUCED MOTION
+   ================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .heart.pumping {
+        animation: none;
+    }
+
+    .floating-heart {
+        animation: none;
+    }
+
+    .no-wrapper {
+        transition: none;
+    }
+
+    .fade-in {
+        animation: none;
+        opacity: 1;
+    }
+
+    .bounce-text {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* ===== TEXT REVEAL ANIMATION ===== */
+.fade-up {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.5s;
+}
+
+.delay-2 {
+    animation-delay: 1s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== HIDDEN INITIAL STATE ===== */
+.animate {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+/* ===== ACTIVE ANIMATION ===== */
+.animate.show {
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== ANTIGRAVITY SAFE ANIMATIONS ===== */
+.ag-animate {
+    opacity: 0;
+    transform: translateY(14px);
+}
+
+.ag-animate.ag-show {
+    animation: agFadeUp 0.6s ease-out forwards;
+}
+
+@keyframes agFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Continuous attention */
+.ag-pulse {
+    animation: agPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes agPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Typography helpers */
+.ag-bold {
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.ag-italic {
+    font-style: italic;
+    opacity: 0.9;
+}

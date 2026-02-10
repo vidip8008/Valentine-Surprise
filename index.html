@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine Surprise 💕</title>
+    <meta name="description" content="Create a personalized Valentine proposal for your special person">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+    <!-- PAGE 1: Landing Page -->
+    <div id="landing-page" class="page">
+        <div class="container">
+            <div class="heart-container">
+                <div class="heart pumping"></div>
+            </div>
+            <h1 class="landing-title">Create Your Valentine Surprise</h1>
+            <p class="landing-subtitle">Enter your special person's name to generate a personalized proposal ❤️</p>
+            <div class="input-wrapper">
+                <input type="text" id="name-input" class="name-input" placeholder="Her name…" autocomplete="off">
+            </div>
+            <button id="generate-btn" class="btn btn-primary">Generate Surprise 💗</button>
+
+            <!-- Manage Surprises (shown when user has paid creations) -->
+            <div id="manage-section" class="manage-section hidden">
+                <button id="manage-btn" class="btn btn-manage">Manage Surprises 💌</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: Valentine Question Page -->
+    <div id="valentine-page" class="page hidden">
+        <div class="watermark-overlay" id="watermark"></div>
+        <div class="container">
+            <div class="heart-container">
+                <div class="heart pumping"></div>
+            </div>
+            <p class="quote-text ag-animate">In a world full of people,<br>you're my person ❤️</p>
+            <div class="proposal-text">
+                <h2 id="display-name" class="name-display ag-animate"></h2>
+                <p class="proposal-question ag-animate">Will you be my Valentine?</p>
+            </div>
+            <div class="buttons-container horizontal ag-animate">
+                <button id="yes-btn" class="btn btn-yes">YES 💛</button>
+                <div id="no-wrapper" class="no-wrapper">
+                    <button id="no-btn" class="btn btn-no">No 🥺</button>
+                    <span class="catch-text">catch me if you can 😜</span>
+                </div>
+            </div>
+            <div id="unlock-section" class="unlock-section">
+                <button id="unlock-btn" class="btn btn-unlock">Unlock &amp; Share 🔒</button>
+            </div>
+            <div id="share-section" class="share-section hidden">
+                <p class="share-ready-text">Your surprise is ready 💖</p>
+                <div class="share-link-container">
+                    <input type="text" id="share-link" class="share-link-input" readonly>
+                    <button id="copy-btn" class="btn btn-copy">Copy Link 🔗</button>
+                </div>
+                <p id="copy-feedback" class="copy-feedback hidden">Link copied!</p>
+                <button id="create-another-btn" class="btn btn-create-another">Create another surprise 💕</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: After YES Page -->
+    <div id="yes-page" class="page hidden">
+        <div class="watermark-overlay" id="watermark-yes"></div>
+        <div class="floating-hearts" id="floating-hearts"></div>
+        <div class="container">
+            <div class="yes-content">
+                <p class="yes-text yes-text-heading ag-animate">Aww, my darling ❤️</p>
+                <p class="yes-text yes-text-subheading ag-animate">I knew you'd say yes.</p>
+                <p class="yes-text yes-text-body ag-animate">I promise to annoy you, care for you,<br>and choose
+                    you—every single day 💫</p>
+                <p class="yes-text yes-text-cta ag-animate">Now come here 🤗</p>
+                <div class="gif-container ag-animate">
+                    <img src="https://res.cloudinary.com/djf5jgcgx/image/upload/v1770632769/besito-catlove_nyufpf.gif"
+                        alt="Love GIF" class="love-gif">
+                </div>
+                <div id="unlock-section-yes" class="unlock-section">
+                    <button id="unlock-btn-yes" class="btn btn-unlock">Unlock &amp; Share 🔒</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MANAGE SURPRISES PANEL (overlay) -->
+    <div id="manage-panel" class="manage-panel hidden">
+        <div class="manage-panel-content">
+            <div class="manage-panel-header">
+                <h2>Your Valentines 💌</h2>
+                <button id="manage-close-btn" class="manage-close-btn">&times;</button>
+            </div>
+            <div id="manage-list" class="manage-list"></div>
+            <button id="manage-create-btn" class="btn btn-primary manage-create-btn">Create New Surprise 💗</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
