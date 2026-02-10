@@ -122,6 +122,13 @@ function showPage(pageToShow) {
 
     pageToShow.classList.remove('hidden');
 
+    // Hide/show the No button (it may be on document.body as a fixed element)
+    if (pageToShow === elements.valentinePage) {
+        elements.noWrapper.style.display = '';
+    } else {
+        elements.noWrapper.style.display = 'none';
+    }
+
     // ⏳ Allow layout to render, then animate
     setTimeout(() => {
         triggerAnimations(pageToShow);
