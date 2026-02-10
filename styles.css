@@ -620,6 +620,7 @@ body {
 #yes-page {
     position: fixed;
     background: linear-gradient(135deg, #fef7f0 0%, #fef3f0 25%, #fef0ef 50%, #feecec 75%, #fde8e8 100%);
+    overflow: hidden;
 }
 
 .yes-content {
@@ -628,6 +629,9 @@ body {
     align-items: center;
     gap: 24px;
     padding: 20px;
+    max-width: 100vw;
+    overflow: hidden;
+    word-break: break-word;
 }
 
 .yes-text {
