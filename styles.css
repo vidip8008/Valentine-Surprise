@@ -822,6 +822,14 @@ body {
         font-size: 1.1rem;
     }
 
+    .yes-text-heading {
+        font-size: 2.2rem;
+    }
+
+    .yes-text-cta {
+        font-size: 1.75rem;
+    }
+
     .love-gif {
         max-width: 240px;
     }

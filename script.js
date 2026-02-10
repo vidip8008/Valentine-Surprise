@@ -335,18 +335,43 @@ function getRandomPosition() {
 }
 
 function escapeNoButton() {
-    // Move to body on first escape to fix CSS transform containment issue
-    if (elements.noWrapper.parentElement !== document.body) {
+    const isFirstEscape = elements.noWrapper.parentElement !== document.body;
+
+    if (isFirstEscape) {
+        // Capture where the button currently is on screen
+        const currentRect = elements.noWrapper.getBoundingClientRect();
+
+        // Disable transition so the reparenting doesn't flash
+        elements.noWrapper.style.transition = 'none';
+
+        // Move to body to avoid CSS transform containment issues
         document.body.appendChild(elements.noWrapper);
+
+        // Set fixed position at current visual location (no visible change)
+        elements.noWrapper.style.position = 'fixed';
+        elements.noWrapper.style.left = `${currentRect.left}px`;
+        elements.noWrapper.style.top = `${currentRect.top}px`;
+        elements.noWrapper.style.margin = '0';
+        elements.noWrapper.style.zIndex = '50';
+
+        // Force layout so the browser registers the starting position
+        elements.noWrapper.offsetHeight;
+
+        // Re-enable transition
+        elements.noWrapper.style.transition = '';
+
+        // Now animate to the new random position
+        const pos = getRandomPosition();
+        requestAnimationFrame(() => {
+            elements.noWrapper.style.left = `${pos.x}px`;
+            elements.noWrapper.style.top = `${pos.y}px`;
+        });
+    } else {
+        // Already fixed-positioned — just animate to new spot
+        const pos = getRandomPosition();
+        elements.noWrapper.style.left = `${pos.x}px`;
+        elements.noWrapper.style.top = `${pos.y}px`;
     }
-
-    const pos = getRandomPosition();
-
-    elements.noWrapper.style.position = 'fixed';
-    elements.noWrapper.style.left = `${pos.x}px`;
-    elements.noWrapper.style.top = `${pos.y}px`;
-    elements.noWrapper.style.margin = '0';
-    elements.noWrapper.style.zIndex = '50';
 }
 
 // ================================================
