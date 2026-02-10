@@ -471,7 +471,7 @@ function handleGenerateSurprise() {
 
     // Navigate to valentine page with name
     const newUrl = `${window.location.pathname}?name=${encodeURIComponent(name)}`;
-    window.history.pushState({}, '', newUrl);
+    window.history.pushState({ page: 'valentine', name: name }, '', newUrl);
 
     // Update state
     state.name = name;
@@ -515,6 +515,10 @@ function handleYesClick() {
     // Hide the No button (it may have been moved to body)
     elements.noWrapper.style.display = 'none';
 
+    // Push state so back button returns to valentine page
+    const yesUrl = `${window.location.pathname}?name=${encodeURIComponent(state.name)}&yes=true`;
+    window.history.pushState({ page: 'yes', name: state.name }, '', yesUrl);
+
     showPage(elements.yesPage);
     startFloatingHearts();
 }
@@ -549,10 +553,60 @@ function showCopyFeedback() {
 
 function handleCreateAnother() {
     // Go back to landing page
-    window.history.pushState({}, '', window.location.pathname);
+    window.history.pushState({ page: 'landing' }, '', window.location.pathname);
     elements.nameInput.value = '';
     updateManageVisibility();
     showPage(elements.landingPage);
+}
+
+// Handle browser back/forward button
+function navigateByUrl() {
+    const params = getUrlParams();
+
+    if (params.name) {
+        state.name = params.name;
+        elements.displayName.textContent = state.name + ',';
+
+        // Check if we're on the yes/celebration page
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('yes') === 'true') {
+            showPage(elements.yesPage);
+            return;
+        }
+
+        if (params.paid) {
+            state.isPaid = true;
+            state.isPreview = false;
+            hideWatermarks();
+            hideUnlockUI();
+            hideShareUI();
+        } else if (isNamePaid(state.name)) {
+            state.isPaid = true;
+            state.isPreview = false;
+            hideWatermarks();
+            hideUnlockUI();
+            showShareSection(state.name);
+        } else {
+            state.isPaid = false;
+            state.isPreview = true;
+            const unlockText = `Make it special for ${state.name} \u2014 remove watermark & share \ud83d\udc9d`;
+            if (elements.unlockBtn) elements.unlockBtn.textContent = unlockText;
+            if (elements.unlockBtnYes) elements.unlockBtnYes.textContent = unlockText;
+            showWatermarks();
+            showUnlockUI();
+            populateWatermark(elements.watermark);
+            populateWatermark(elements.watermarkYes);
+            hideShareUI();
+        }
+
+        // Show no button again if going back to valentine page
+        elements.noWrapper.style.display = '';
+
+        showPage(elements.valentinePage);
+    } else {
+        updateManageVisibility();
+        showPage(elements.landingPage);
+    }
 }
 
 // ================================================
@@ -690,6 +744,11 @@ function attachEventListeners() {
                 escapeNoButton();
             }
         }
+    });
+
+    // Handle browser back/forward button
+    window.addEventListener('popstate', () => {
+        navigateByUrl();
     });
 }
 
