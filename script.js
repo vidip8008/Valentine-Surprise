@@ -6,7 +6,7 @@ const CONFIG = {
     // Razorpay Test Keys - Replace with production keys when ready
     razorpay: {
         key: 'rzp_live_RZCoCRx6gL5tnp', // Replace with your Razorpay test key
-        amount: 100, // Amount in paise (99 INR)
+        amount: 9900, // Amount in paise (99 INR)
         currency: 'INR',
         name: 'Valentine Surprise',
         description: 'Unlock Valentine Surprise',
