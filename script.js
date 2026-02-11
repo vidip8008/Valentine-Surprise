@@ -51,6 +51,11 @@ const elements = {
     watermarkYes: document.getElementById('watermark-yes'),
     unlockSectionYes: document.getElementById('unlock-section-yes'),
     unlockBtnYes: document.getElementById('unlock-btn-yes'),
+    shareSectionYes: document.getElementById('share-section-yes'),
+    shareLinkYes: document.getElementById('share-link-yes'),
+    copyBtnYes: document.getElementById('copy-btn-yes'),
+    copyFeedbackYes: document.getElementById('copy-feedback-yes'),
+    createAnotherBtnYes: document.getElementById('create-another-btn-yes'),
 
     // Manage Panel
     managePanel: document.getElementById('manage-panel'),
@@ -111,7 +116,8 @@ function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
     return {
         name: params.get('name'),
-        paid: params.get('paid') === 'true'
+        paid: params.get('paid') === 'true',
+        yes: params.get('yes') === 'true'
     };
 }
 
@@ -184,13 +190,17 @@ function showUnlockUI() {
 // Hide share section
 function hideShareUI() {
     if (elements.shareSection) elements.shareSection.classList.add('hidden');
+    if (elements.shareSectionYes) elements.shareSectionYes.classList.add('hidden');
 }
 
 // Show share section with generated link
 function showShareSection(name) {
     const link = generateShareableLink(name);
-    elements.shareLink.value = link;
-    elements.shareSection.classList.remove('hidden');
+    if (elements.shareLink) elements.shareLink.value = link;
+    if (elements.shareLinkYes) elements.shareLinkYes.value = link;
+
+    if (elements.shareSection) elements.shareSection.classList.remove('hidden');
+    if (elements.shareSectionYes) elements.shareSectionYes.classList.remove('hidden');
 }
 
 // Show/hide manage button on landing page
@@ -552,35 +562,42 @@ function handleYesClick() {
     const yesUrl = `${window.location.pathname}?name=${encodeURIComponent(state.name)}&yes=true`;
     window.history.pushState({ page: 'yes', name: state.name }, '', yesUrl);
 
+    // If already paid (sender mode), show share section on celebration page
+    if (isNamePaid(state.name)) {
+        showShareSection(state.name);
+    }
+
     showPage(elements.yesPage);
     startFloatingHearts();
 }
 
-function handleCopyLink() {
-    const linkText = elements.shareLink.value;
+function handleCopyLink(isYesPage = false) {
+    const input = isYesPage ? elements.shareLinkYes : elements.shareLink;
+    const feedback = isYesPage ? elements.copyFeedbackYes : elements.copyFeedback;
+    const linkText = input.value;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(linkText).then(() => {
-            showCopyFeedback();
+            showCopyFeedback(feedback);
         }).catch(() => {
-            fallbackCopy(linkText);
+            fallbackCopy(input, feedback);
         });
     } else {
-        fallbackCopy(linkText);
+        fallbackCopy(input, feedback);
     }
 }
 
-function fallbackCopy(text) {
-    elements.shareLink.select();
-    elements.shareLink.setSelectionRange(0, 99999);
+function fallbackCopy(input, feedback) {
+    input.select();
+    input.setSelectionRange(0, 99999);
     document.execCommand('copy');
-    showCopyFeedback();
+    showCopyFeedback(feedback);
 }
 
-function showCopyFeedback() {
-    elements.copyFeedback.classList.remove('hidden');
+function showCopyFeedback(feedbackEl) {
+    feedbackEl.classList.remove('hidden');
     setTimeout(() => {
-        elements.copyFeedback.classList.add('hidden');
+        feedbackEl.classList.add('hidden');
     }, 2000);
 }
 
@@ -599,13 +616,6 @@ function navigateByUrl() {
     if (params.name) {
         state.name = params.name;
         elements.displayName.textContent = state.name + ',';
-
-        // Check if we're on the yes/celebration page
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('yes') === 'true') {
-            showPage(elements.yesPage);
-            return;
-        }
 
         if (params.paid) {
             state.isPaid = true;
@@ -630,6 +640,12 @@ function navigateByUrl() {
             populateWatermark(elements.watermark);
             populateWatermark(elements.watermarkYes);
             hideShareUI();
+        }
+
+        // Check if we're on the yes/celebration page
+        if (params.yes) {
+            showPage(elements.yesPage);
+            return;
         }
 
         // Show no button again if going back to valentine page
@@ -694,8 +710,16 @@ function init() {
             hideShareUI();
         }
 
-        // Show valentine page
-        showPage(elements.valentinePage);
+        // Show appropriate page (Valentine or Celebration)
+        if (params.yes) {
+            if (state.isPaid && !params.paid) {
+                showShareSection(state.name);
+            }
+            showPage(elements.yesPage);
+            startFloatingHearts();
+        } else {
+            showPage(elements.valentinePage);
+        }
     } else {
         // Show landing page
         updateManageVisibility();
@@ -756,12 +780,18 @@ function attachEventListeners() {
         elements.unlockBtnYes.addEventListener('click', initiatePayment);
     }
 
-    // Copy button
-    elements.copyBtn.addEventListener('click', handleCopyLink);
+    // Copy buttons
+    elements.copyBtn.addEventListener('click', () => handleCopyLink(false));
+    if (elements.copyBtnYes) {
+        elements.copyBtnYes.addEventListener('click', () => handleCopyLink(true));
+    }
 
     // Create another surprise
     if (elements.createAnotherBtn) {
         elements.createAnotherBtn.addEventListener('click', handleCreateAnother);
+    }
+    if (elements.createAnotherBtnYes) {
+        elements.createAnotherBtnYes.addEventListener('click', handleCreateAnother);
     }
 
     // Handle window resize for no button
