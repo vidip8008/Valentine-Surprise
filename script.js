@@ -233,19 +233,20 @@ function renderManageList() {
     list.forEach(valentine => {
         const item = document.createElement('div');
         item.className = 'manage-item';
-
-        const nameSpan = document.createElement('span');
-        nameSpan.className = 'manage-item-name';
-        nameSpan.textContent = valentine.name + ' 💕';
-        nameSpan.addEventListener('click', () => {
+        item.addEventListener('click', () => {
             closeManagePanel();
             loadValentine(valentine.name);
         });
 
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'manage-item-name';
+        nameSpan.textContent = valentine.name + ' 💕';
+
         const copyBtn = document.createElement('button');
         copyBtn.className = 'manage-item-copy';
         copyBtn.textContent = 'Copy Link 🔗';
-        copyBtn.addEventListener('click', () => {
+        copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Don't trigger the item's click event
             copyToClipboard(valentine.link, copyBtn);
         });
 

@@ -572,12 +572,18 @@ body {
     background: rgba(254, 240, 245, 0.8);
     border: 1px solid rgba(214, 51, 132, 0.12);
     border-radius: 14px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .manage-item:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(214, 51, 132, 0.08);
+    transform: translateY(-2px);
+    background: rgba(254, 240, 245, 1);
+    box-shadow: 0 8px 20px rgba(214, 51, 132, 0.1);
+}
+
+.manage-item:active {
+    transform: translateY(0);
 }
 
 .manage-item-name {
@@ -585,7 +591,6 @@ body {
     font-weight: 600;
     font-size: 0.95rem;
     color: #5c374c;
-    cursor: pointer;
     transition: color 0.2s ease;
 }
 
