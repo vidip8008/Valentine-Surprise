@@ -585,6 +585,12 @@ body {
     font-weight: 600;
     font-size: 0.95rem;
     color: #5c374c;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.manage-item-name:hover {
+    color: #d63384;
 }
 
 .manage-item-copy {

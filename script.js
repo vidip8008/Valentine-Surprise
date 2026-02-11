@@ -237,6 +237,10 @@ function renderManageList() {
         const nameSpan = document.createElement('span');
         nameSpan.className = 'manage-item-name';
         nameSpan.textContent = valentine.name + ' 💕';
+        nameSpan.addEventListener('click', () => {
+            closeManagePanel();
+            loadValentine(valentine.name);
+        });
 
         const copyBtn = document.createElement('button');
         copyBtn.className = 'manage-item-copy';
@@ -464,16 +468,22 @@ function onPaymentSuccess(response) {
 // EVENT HANDLERS
 // ================================================
 
-function handleGenerateSurprise() {
-    const name = elements.nameInput.value.trim();
-
-    if (!name) {
-        elements.nameInput.focus();
-        elements.nameInput.style.borderColor = '#ff4081';
-        setTimeout(() => {
-            elements.nameInput.style.borderColor = '';
-        }, 2000);
-        return;
+function loadValentine(name) {
+    // Reset No button if it was moved to body (from a previous proposal)
+    if (elements.noWrapper.parentElement === document.body) {
+        const buttonsContainer = document.querySelector('.buttons-container.horizontal');
+        if (buttonsContainer) {
+            buttonsContainer.appendChild(elements.noWrapper);
+            elements.noWrapper.style.position = '';
+            elements.noWrapper.style.left = '';
+            elements.noWrapper.style.top = '';
+            elements.noWrapper.style.margin = '';
+            elements.noWrapper.style.zIndex = '';
+            elements.noWrapper.style.transition = 'none';
+            // Force reflow
+            elements.noWrapper.offsetHeight;
+            elements.noWrapper.style.transition = '';
+        }
     }
 
     // Navigate to valentine page with name
@@ -516,6 +526,21 @@ function handleGenerateSurprise() {
     }
 
     showPage(elements.valentinePage);
+}
+
+function handleGenerateSurprise() {
+    const name = elements.nameInput.value.trim();
+
+    if (!name) {
+        elements.nameInput.focus();
+        elements.nameInput.style.borderColor = '#ff4081';
+        setTimeout(() => {
+            elements.nameInput.style.borderColor = '';
+        }, 2000);
+        return;
+    }
+
+    loadValentine(name);
 }
 
 function handleYesClick() {
